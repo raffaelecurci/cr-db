@@ -1,0 +1,7 @@
+# eclipse project file
+.settings/
+.classpath
+.project
+/target/
+/src/report
+/.gitignore
