@@ -8,5 +8,5 @@ import cr.interf.EncryptedMessage;
 public class DBManager {
 	public EncryptedMessage action(EncryptedMessage message) {
 		return message;
-	} 
+	}
 }

@@ -18,7 +18,7 @@ import cr.dbo.access.USER;
 import cr.dbo.access.USERXGROUP;
 import cr.dbo.ops.COMMIT;
 import cr.dbo.ops.repository.COMMITRepository;
-import cr.dbo.repository.Queries;
+import cr.dbo.repository.ProjectQueries;
 import cr.dbo.repository.access.GROUPRepository;
 import cr.dbo.repository.access.USERRepository;
 import cr.dbo.repository.access.USERXGROUPRepository;
@@ -34,8 +34,8 @@ public class USERRepositoryTest {
     private USERXGROUPRepository uSERXGROUPRepository;
     @Autowired
     private COMMITRepository cOMMITRepository;
-    @Autowired
-    private Queries queries;
+//    @Autowired
+//    private Queries queries;
     
     @Before
     public void setUp() throws Exception {
@@ -87,21 +87,21 @@ public class USERRepositoryTest {
     @Test
     public void testFetchData(){
 //    	List<Object[]> l=uSERXGROUPRepository.findByGroup("users");
-    	List<Object[]> l=queries.findByGroup("users");
-//    	List<USER> l=uSERXGROUPRepository.findByGroup("users");
-    	final List<USER> list=new LinkedList<USER>();
-    	l.forEach(e->{
-    		USER u=new USER(e);
-    		u.setEnabled(0);
-    		list.add(u);
-    	});
-    	for (int i = 0; i < l.get(0).length; i++) {
-			System.out.println(l.get(0)[i].getClass().getName());
-		}
-    	
-    	list.forEach(e->{System.out.println(e);uSERRepository.save(e);});
-    	
-    	System.out.println(l.size());
+//    	List<Object[]> l=queries.findByGroup("users");
+////    	List<USER> l=uSERXGROUPRepository.findByGroup("users");
+//    	final List<USER> list=new LinkedList<USER>();
+//    	l.forEach(e->{
+//    		USER u=new USER(e);
+//    		u.setEnabled(0);
+//    		list.add(u);
+//    	});
+//    	for (int i = 0; i < l.get(0).length; i++) {
+//			System.out.println(l.get(0)[i].getClass().getName());
+//		}
+//    	
+//    	list.forEach(e->{System.out.println(e);uSERRepository.save(e);});
+//    	
+//    	System.out.println(l.size());
     	
     	USER u=uSERRepository.findById(1L).get();
     	String row="{\"enabled\":1,\"password\":\"piedone\",\"id\":1,\"username\":\"admin\"}";
