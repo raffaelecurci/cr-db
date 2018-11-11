@@ -6,21 +6,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.context.annotation.Bean;
 
 import cr.annotation.QueueDefinition;
 
-@QueueDefinition(queues = { "app1", "app2" }, excludeListeners = { "app1" })
+@QueueDefinition(queues = { "db"}, rpcServer= {"db"})
 @RefreshScope
 @SpringBootApplication
 @EnableRabbit
-@EnableEurekaServer
 @EnableDiscoveryClient
 public class MsgqApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsgqApplication.class, args);
 	}
-
+	
+	
 }
 
