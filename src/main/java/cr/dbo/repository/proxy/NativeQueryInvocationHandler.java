@@ -52,20 +52,8 @@ public class NativeQueryInvocationHandler implements InvocationHandler {
 		String root = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
 		List<Class<?>> classList = new LinkedList<Class<?>>();
 		listAnnotationCandidate(root, classList, root, FileSystems.getDefault().getSeparator());
-		Class<?> v[] = new Class<?>[classList.size() + 1];
+		Class<?> v[] = new Class<?>[classList.size()];
 		classList.toArray(v);
-		// cr.dbo.repository.proxy
-		try {
-			v[classList.size()] = Class.forName("cr.dbo.repository.proxy.Queries");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("\t\t\t{START}");
-		System.out.println();
-		System.out.println(Arrays.toString(v));
-		System.out.println();
-		System.out.println("\t\t\t{END}");
 		return v;
 	}
 
