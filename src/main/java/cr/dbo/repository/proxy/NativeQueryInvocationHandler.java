@@ -12,10 +12,10 @@ import java.util.List;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
+import cr.dbo.repository.ProjectQueries;
 import cr.dbo.repository.annotation.NativeQuery;
 
 @Configuration
@@ -31,12 +31,12 @@ public class NativeQueryInvocationHandler implements InvocationHandler {
 		return null;
 	}
 	
-	@Lazy(true)
+	
 	@Bean
 	@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.INTERFACES)
-	public<T> T getProxyedInstance() {
+	public ProjectQueries getProxyedInstance() {
 		NativeQueryInvocationHandler handler=new NativeQueryInvocationHandler();
-		T p = (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
+		ProjectQueries p = (ProjectQueries) Proxy.newProxyInstance(this.getClass().getClassLoader(),
 				getNativeQueryInterfaces(), handler);
 		// NativeQueryInvocationHandler handler = this;
 		// ProjectQueries p = (ProjectQueries) Proxy.newProxyInstance(
