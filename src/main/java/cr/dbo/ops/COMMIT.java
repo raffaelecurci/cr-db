@@ -43,13 +43,13 @@ public class COMMIT extends TableEntity implements Serializable{
 		this.idRepository=idRepository;
 	}
 	
-	public COMMIT(Object v[]) {
-		super();
-		this.id=((java.math.BigInteger)v[0]).longValue();
-		this.hash=(String)v[1];
-		this.idCommitter=(Integer)v[2];
-		this.idRepository=(Integer)v[3];
-	}
+//	public COMMIT(Object v[]) {
+//		super();
+//		this.id=((java.math.BigInteger)v[0]).longValue();
+//		this.hash=(String)v[1];
+//		this.idCommitter=(Integer)v[2];
+//		this.idRepository=(Integer)v[3];
+//	}
 	public COMMIT() {
 		super();
 	}

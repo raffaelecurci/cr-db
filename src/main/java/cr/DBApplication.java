@@ -15,10 +15,10 @@ import cr.annotation.QueueDefinition;
 @SpringBootApplication
 @EnableRabbit
 @EnableDiscoveryClient
-public class MsgqApplication extends SpringBootServletInitializer {
+public class DBApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsgqApplication.class, args);
+		SpringApplication.run(DBApplication.class, args);
 	}
 	
 	

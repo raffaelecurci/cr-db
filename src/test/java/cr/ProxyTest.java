@@ -26,14 +26,14 @@ public class ProxyTest {
         ProjectQueries o = (ProjectQueries) Proxy.newProxyInstance(
         		NativeQueryInvocationHandler.class.getClassLoader(),
                             new Class[]{ProjectQueries.class}, handler);
-        o.doSomething();
+//        o.doSomething();
 	}
 	
 	@Test
 	public void test2() {
 //		System.out.println(queries.doSomething());
 //		System.out.println(uSERRepository);
-		queries.doSomething();
+		System.out.println(queries.findCommitter("pippo@pluto.it"));;
 	}
 //	@Test
 	public void test3() {}

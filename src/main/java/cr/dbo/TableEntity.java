@@ -3,15 +3,13 @@ package cr.dbo;
 import java.lang.reflect.Field;
 
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
-import cr.MsgqApplication;
+import cr.DBApplication;
 import cr.interf.EncryptedMessage;
 
 public class TableEntity {
 	
-	private static String encryption=MsgqApplication.class.getAnnotation(cr.annotation.QueueDefinition.class).encryption();
+	private static String encryption=DBApplication.class.getAnnotation(cr.annotation.QueueDefinition.class).encryption();
 	
 	public JSONObject toJson() {
 		Field[] fields = this.getClass().getDeclaredFields();

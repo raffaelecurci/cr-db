@@ -6,10 +6,19 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.nio.file.FileSystems;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -18,33 +27,50 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import cr.dbo.repository.ProjectQueries;
 import cr.dbo.repository.annotation.NativeQuery;
 
+@RefreshScope
 @Configuration
 public class NativeQueryInvocationHandler implements InvocationHandler {
-
+	@Autowired
+	private EntityManager em;
+	
+	@Value("${spring.jpa.show-sql}")
+	boolean showSQL;
+	
+	private static final Logger log=LoggerFactory.getLogger(NativeQueryInvocationHandler.class);
+	
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		System.out.println(method);
+		System.out.println("Hibernate: NativeQuery from method --->>> "+method);
+		NativeQuery annotation = method.getAnnotation(NativeQuery.class);
+		final Query q=em.createNativeQuery(annotation.query(), annotation.resultClass());
 		if (args != null) {
-			// Arrays.stream(args).forEach(c->c.toString());
+			for (int i = 0; i < args.length; i++) {
+				q.setParameter(i+1, args[i]);
+			}
+			if(showSQL)
+				System.out.print("Hibernate: Query Parameters in order of assignment --->>> ");
+				System.out.println(Arrays.toString(args));
 		}
-
-		return null;
+		
+		List<?> result=q.getResultList();
+		log.info("Retrieved records: "+result.size());
+		if(Collection.class.isAssignableFrom(method.getReturnType()))
+			return result;
+		else if(result.size()==1)
+			return result.get(0);
+		else if(result.size()==0)
+			return null;
+		else
+			throw new Exception("Expected a Single result but retrieved more than one record");
 	}
 	
 	
 	@Bean
 	@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.INTERFACES)
 	public ProjectQueries getProxyedInstance() {
-		NativeQueryInvocationHandler handler=new NativeQueryInvocationHandler();
+//		NativeQueryInvocationHandler handler=new NativeQueryInvocationHandler();
 		ProjectQueries p = (ProjectQueries) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-				getNativeQueryInterfaces(), handler);
-		// NativeQueryInvocationHandler handler = this;
-		// ProjectQueries p = (ProjectQueries) Proxy.newProxyInstance(
-		// NativeQueryInvocationHandler.class.getClassLoader(),
-		// new Class[]{ProjectQueries.class}, this);
-		// System.out.println("\n\n proxyed:"+p+"\n\n");
-		// if(p==null)
-		// System.exit(0);
+				getNativeQueryInterfaces(), this);
 		return p;
 	}
 
