@@ -49,7 +49,7 @@ public class NativeQueryInvocationHandler implements InvocationHandler {
 				q.setParameter(i + 1, args[i]);
 			}
 			String showSQL=BeanUtil.getApplicationContext().getEnvironment().getProperty("spring.jpa.show-sql");
-			System.out.println("show sql:"+showSQL);
+//			System.out.println("show sql:"+showSQL);
 			if (new Boolean(showSQL).booleanValue())
 				System.out.print("Hibernate: Query Parameters in order of assignment --->>> ");
 			System.out.println(Arrays.toString(args));

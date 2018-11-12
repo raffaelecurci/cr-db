@@ -16,8 +16,10 @@ public class TableEntity {
 		  JSONObject json=new JSONObject();
 		  for ( Field field : fields  ) {
 		    try {
-		    	field.setAccessible(true);
-				json.put(field.getName(),field.get(this) );
+		    	if(!field.getName().equals("serialVersionUID")) {
+		    		field.setAccessible(true);
+					json.put(field.getName(),field.get(this) );	
+		    	}
 		    } catch ( IllegalAccessException ex ) {
 		      System.out.println(ex);
 		    }

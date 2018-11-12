@@ -15,11 +15,8 @@ import cr.annotation.QueueDefinition;
 @EnableRabbit
 @EnableDiscoveryClient
 public class DBApplication extends SpringBootServletInitializer {
-
 	public static void main(String[] args) {
 		SpringApplication.run(DBApplication.class, args);
 	}
-	
-	
 }
 
