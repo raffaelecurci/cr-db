@@ -24,21 +24,24 @@ public class JENKINS extends TableEntity implements Serializable{
 	private String password;
 	private String ip;
 	private String job;
+	private Boolean available;
 	
-	public JENKINS(Long id, String username, String password,String ip,String job) {
+	public JENKINS(Long id, String username, String password,String ip,String job,Boolean available) {
 		super();
 		this.id=id;
 		this.username=username;
 		this.password=password;
 		this.ip=ip;
 		this.job=job;
+		this.available=available;
 	}
-	public JENKINS(String username, String password,String ip,String job) {
+	public JENKINS(String username, String password,String ip,String job,Boolean available) {
 		super();
 		this.username=username;
 		this.password=password;
 		this.ip=ip;
 		this.job=job;
+		this.available=available;
 	}
 	public JENKINS() {
 		super();
