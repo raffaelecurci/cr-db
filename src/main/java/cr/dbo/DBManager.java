@@ -21,11 +21,11 @@ public class DBManager {
 	@Autowired
 	private ProjectQueries queries;
 	@Autowired
-	private PROJECTRepository projRepo;
+	private PROJECTRepository pROJECTRepository;
 	@Autowired
-	private COMMITTERRepository cmtrRepo;
+	private COMMITTERRepository cOMMITTERRepository;
 	@Autowired
-	private COMMITRepository cmtRepo;
+	private COMMITRepository cOMMITRepository;
 	
 	private static String encryption=DBApplication.class.getAnnotation(QueueDefinition.class).encryption();
 	public EncryptedMessage action(EncryptedMessage message) {
@@ -39,14 +39,19 @@ public class DBManager {
 		Commit commit=message.decodeBase64ToObject();
 		System.out.println("processCommit: "+commit);
 		
+//		System.out.println(pROJECTRepository.count());
+//		System.out.println("\n\n");
+		ProjectQueries queries=cr.BeanUtil.getBean(ProjectQueries.class); 
 		PROJECT p=queries.findProject(commit.getProjectname(), commit.getUrl());
+//		System.out.println("\n\n");
 		if(p==null)
-			p=projRepo.save(new PROJECT("", null, commit.getProjectname(), commit.getUrl()));
+			p=pROJECTRepository.save(new PROJECT("", null, commit.getProjectname(), commit.getUrl()));
 		COMMITTER c=queries.findCommitter(commit.getEmail());
 		if(c==null)
-			c=cmtrRepo.save(new COMMITTER(commit.getEmail(), commit.getCommittername(), commit.getUsername()));
-		COMMIT cmt=cmtRepo.save(new COMMIT(commit.getHash(),c.getId(),p.getId()));
+			c=cOMMITTERRepository.save(new COMMITTER(commit.getEmail(), commit.getCommittername(), commit.getUsername()));
+		COMMIT cmt=cOMMITRepository.save(new COMMIT(commit.getHash(),c.getId(),p.getId()));
 		
 		return cmt.toEncryptedMessage().encodeBase64();
+//		return message;
 	}
 }

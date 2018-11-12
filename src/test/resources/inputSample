@@ -1,2 +1,5 @@
-# a message for to be sent on db-queue
+# a test message for to be sent on db-queue
 {"type":"PlainText","payload":"fSJuaW1kYSI6ImVtYW5yZXN1IiwxOiJkZWxiYW5lIiwxOiJkaSIsIlJFU1Uuc3NlY2NhLm9iZC5yYyI6InNzYWxjQCIsImVub2RlaXAiOiJkcm93c3NhcCJ7"}
+
+# a test commit message
+{"type":"PlainText","payload":"fSJwZW5hYyI6ImVtYW5yZXN1IiwiZXdxLmV3cS8vOnB0dGgiOiJscnUiLCJ0aS5vdHVscEBvcHBpcCI6ImxpYW1lIiwiMWV3cSI6ImhzYWgiLCIiOiJlZ2F1Z25hbCIsInRpbW1vQy5kZXJhaHMucmMiOiJzc2FsY0AiLCJhdm9ycCI6ImVtYW50Y2Vqb3JwIiwib3BwaXAiOiJlbWFucmV0dGltbW9jIns="}
