@@ -1,5 +1,15 @@
-# a test message for to be sent on db-queue
+# a test message for db-queue
 {"type":"PlainText","payload":"fSJuaW1kYSI6ImVtYW5yZXN1IiwxOiJkZWxiYW5lIiwxOiJkaSIsIlJFU1Uuc3NlY2NhLm9iZC5yYyI6InNzYWxjQCIsImVub2RlaXAiOiJkcm93c3NhcCJ7"}
 
 # a test commit message
 {"type":"PlainText","payload":"fSJwZW5hYyI6ImVtYW5yZXN1IiwiZXdxLmV3cS8vOnB0dGgiOiJscnUiLCJ0aS5vdHVscEBvcHBpcCI6ImxpYW1lIiwiMWV3cSI6ImhzYWgiLCIiOiJlZ2F1Z25hbCIsInRpbW1vQy5kZXJhaHMucmMiOiJzc2FsY0AiLCJhdm9ycCI6ImVtYW50Y2Vqb3JwIiwib3BwaXAiOiJlbWFucmV0dGltbW9jIns="}
+curl -X POST -H 'Content-type: application/json' -d '{"committername":"pippo","projectname":"prova","language":"","hash":"qwe1","email":"pippo@pluto.it","url":"http://qwe.qwe","username":"canep"}' http://localhost:8082/stash
+
+
+# build record request
+{"type":"PlainText","payload":"fSJETElVQk9UIjoic3V0YXRzIiwxOiJ5cm90aXNvcGVSZGkiLGxsdW46InRpbW1vQ2RpIixsbHVuOiJib0pzbmlrbmVKZGkiLGxsdW46InJlZGxvZmVnYXJvdHMiLGxsdW46ImRpIixsbHVuOiJ0Y2Vqb3JQeXRpcnVjZVNkaSIsbGx1bjoiZW1hTmVnYWtjYVBlZG9jYXJldiIsImRyb2NlUmRsaXVCLmRlcmFocy5yYyI6InNzYWxjQCIsbGx1bjoiZW1hTm5vaXRhY2lscHBBZWRvY2FyZXYiLGxsdW46ImRsaXVCc25pa25lSmRpIiwiNDEtMTEtODEwMiI6ImV0YWQiew=="}
+{"date":"2018-11-14","idJenkinsBuild":null,"veracodeApplicationName":null,"@class":"cr.shared.BuildRecord","veracodePackageName":null,"idSecurityProject":null,"id":null,"storagefolder":null,"idJenkinsJob":null,"idCommit":null,"idRepository":1,"status":"TOBUILD"}
+
+# a real commit
+curl -X POST -H 'Content-type: application/json' -d '{"committername":"pippo","projectname":"etw-api","language":"","hash":"4afac4668cb9f38d7acb1b1d646181cf1cdb8e2b","email":"pippo@pluto.it","url":"https://10.11.19.90:8443/scm/gops/etw-api.git","username":"canep"}' http://localhost:8082/stash
+{"type":"PlainText","payload":"fSJwZW5hYyI6ImVtYW5yZXN1IiwidGlnLmlwYS13dGUvc3BvZy9tY3MvMzQ0ODowOS45MS4xMS4wMS8vOnNwdHRoIjoibHJ1IiwidGkub3R1bHBAb3BwaXAiOiJsaWFtZSIsImIyZThiZGMxZmMxODE2NDZkMWIxYmNhN2Q4M2Y5YmM4NjY0Y2FmYTQiOiJoc2FoIiwiIjoiZWdhdWduYWwiLCJ0aW1tb0MuZGVyYWhzLnJjIjoic3NhbGNAIiwiaXBhLXd0ZSI6ImVtYW50Y2Vqb3JwIiwib3BwaXAiOiJlbWFucmV0dGltbW9jIns=","@class":"cr.shared.Commit"}

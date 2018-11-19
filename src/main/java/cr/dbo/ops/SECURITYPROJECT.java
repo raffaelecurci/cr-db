@@ -2,6 +2,7 @@ package cr.dbo.ops;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,8 @@ public class SECURITYPROJECT extends TableEntity implements Serializable{
 	boolean available;
 	private String username;
 	private String password;
+	@Column(name="id_jenkins")
+	private Integer idJenkins;
 	
 	public SECURITYPROJECT(Integer id,String url,String language, Boolean available,String username,String password) {
 		super();

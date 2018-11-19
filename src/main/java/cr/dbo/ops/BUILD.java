@@ -31,8 +31,6 @@ public class BUILD extends TableEntity implements Serializable{
 	private String storagefolder;
 	@Column(name="id_securityproject")
 	private Integer idSecurityProject;
-	@Column(name="id_jenkinsjob")
-	private Integer idJenkinsJob;
 	@Column(name="id_jenkinsbuild")
 	private Long idJenkinsBuild;
 	private String status;
@@ -51,7 +49,6 @@ public class BUILD extends TableEntity implements Serializable{
 		this.idRepository=idRepository;
 		this.storagefolder=storagefolder;
 		this.idSecurityProject=idSecurityProject;
-		this.idJenkinsJob=idJenkinsJob;
 		this.idJenkinsBuild=idJenkinsBuild;
 		this.veracodePackageName=veracodePackageName;
 		this.veracodeApplicationName=veracodeApplicationName;
@@ -64,14 +61,12 @@ public class BUILD extends TableEntity implements Serializable{
 		this.idRepository=idRepository;
 		this.storagefolder=storagefolder;
 		this.idSecurityProject=idSecurityProject;
-		this.idJenkinsJob=idJenkinsJob;
 		this.idJenkinsBuild=-1L;
 		this.veracodePackageName=veracodePackageName;
 		this.veracodeApplicationName=veracodeApplicationName;
 		this.date=new Date();
 		this.status="TOBUILD";
 	}
-	
 	public BUILD() {
 		super();
 	}
@@ -104,12 +99,6 @@ public class BUILD extends TableEntity implements Serializable{
 	}
 	public void setidSecurityProject(Integer idSecurityProject) {
 		this.idSecurityProject = idSecurityProject;
-	}
-	public Integer getIdJenkinsJob() {
-		return idJenkinsJob;
-	}
-	public void setIdJenkinsJob(Integer idJenkinsJob) {
-		this.idJenkinsJob = idJenkinsJob;
 	}
 	public Long getIdJenkinsBuild() {
 		return idJenkinsBuild;

@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface NativeQuery {
 	public String query();
-	public Class<?> resultClass();
+	public Class<?> resultClass() default Void.class;
 }

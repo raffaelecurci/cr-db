@@ -19,37 +19,34 @@ public class JENKINS extends TableEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String username;
 	private String password;
-	private String ip;
+	private String url;
 	private String job;
-	private Boolean available;
 	
-	public JENKINS(Long id, String username, String password,String ip,String job,Boolean available) {
+	public JENKINS(Integer id, String username, String password,String url,String job) {
 		super();
 		this.id=id;
 		this.username=username;
 		this.password=password;
-		this.ip=ip;
+		this.url=url;
 		this.job=job;
-		this.available=available;
 	}
-	public JENKINS(String username, String password,String ip,String job,Boolean available) {
+	public JENKINS(String username, String password,String url,String job) {
 		super();
 		this.username=username;
 		this.password=password;
-		this.ip=ip;
+		this.url=url;
 		this.job=job;
-		this.available=available;
 	}
 	public JENKINS() {
 		super();
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getUsername() {
@@ -64,11 +61,11 @@ public class JENKINS extends TableEntity implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getIp() {
-		return ip;
+	public String getUrl() {
+		return url;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public String getJob() {
 		return job;

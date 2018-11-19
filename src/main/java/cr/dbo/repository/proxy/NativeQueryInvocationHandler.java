@@ -1,7 +1,11 @@
 package cr.dbo.repository.proxy;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -15,13 +19,14 @@ import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -43,29 +48,49 @@ public class NativeQueryInvocationHandler implements InvocationHandler {
 
 		System.out.println("Hibernate: NativeQuery from method --->>> " + method);
 		NativeQuery annotation = method.getAnnotation(NativeQuery.class);
-		final Query q = em.createNativeQuery(annotation.query(), annotation.resultClass());
-		if (args != null) {
-			for (int i = 0; i < args.length; i++) {
-				q.setParameter(i + 1, args[i]);
+		if(annotation.resultClass()!=Void.class) {
+			final Query q = em.createNativeQuery(annotation.query(), annotation.resultClass());
+			if (args != null) {
+				for (int i = 0; i < args.length; i++) {
+					q.setParameter(i + 1, args[i]);
+				}
+				String showSQL=BeanUtil.getApplicationContext().getEnvironment().getProperty("spring.jpa.show-sql");
+//				System.out.println("show sql:"+showSQL);
+				if (new Boolean(showSQL).booleanValue())
+					System.out.print("Hibernate: Query Parameters in order of assignment --->>> ");
+				System.out.println(Arrays.toString(args));
 			}
-			String showSQL=BeanUtil.getApplicationContext().getEnvironment().getProperty("spring.jpa.show-sql");
-//			System.out.println("show sql:"+showSQL);
-			if (new Boolean(showSQL).booleanValue())
-				System.out.print("Hibernate: Query Parameters in order of assignment --->>> ");
-			System.out.println(Arrays.toString(args));
-		}
-
-		List<?> result = q.getResultList();
-		log.info("Retrieved records: " + result.size());
-		if (Collection.class.isAssignableFrom(method.getReturnType()))
-			return result;
-		else if (result.size() == 1)
-			return result.get(0);
-		else if (result.size() == 0)
+			List<?> result = q.getResultList();
+			log.info("Retrieved records: " + result.size());
+			if (Collection.class.isAssignableFrom(method.getReturnType()))
+				return result;
+			else if (result.size() == 1)
+				return result.get(0);
+			else if (result.size() == 0)
+				return null;
+			else
+				throw new Exception("Expected a Single result but retrieved more than one record");
+		}else {
+			em=cr.BeanUtil.getBean(EntityManagerFactory.class).createEntityManager();
+			final Query q = em.createNativeQuery(annotation.query());
+			if (args != null) {
+				for (int i = 0; i < args.length; i++) {
+					q.setParameter(i + 1, args[i]);
+				}
+				String showSQL=BeanUtil.getApplicationContext().getEnvironment().getProperty("spring.jpa.show-sql");
+//				System.out.println("show sql:"+showSQL);
+				if (new Boolean(showSQL).booleanValue())
+					System.out.print("Hibernate: Query Parameters in order of assignment --->>> ");
+				System.out.println(Arrays.toString(args));
+			}
+			EntityTransaction tx=null;
+			tx = em.getTransaction();
+			tx.begin();
+			int k =q.executeUpdate();
+			tx.commit();
+			log.info("Processed records: " + k);
 			return null;
-		else
-			throw new Exception("Expected a Single result but retrieved more than one record");
-		// return null;
+		}
 	}
 
 	@Bean
