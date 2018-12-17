@@ -52,6 +52,12 @@ public class SECURITYPROJECT extends TableEntity implements Serializable{
 	}
 	
 	
+	public Integer getIdJenkins() {
+		return idJenkins;
+	}
+	public void setIdJenkins(Integer idJenkins) {
+		this.idJenkins = idJenkins;
+	}
 	public String getUsername() {
 		return username;
 	}

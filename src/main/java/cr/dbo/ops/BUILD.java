@@ -42,7 +42,7 @@ public class BUILD extends TableEntity implements Serializable{
 	private Date date;
 	
 	
-	public BUILD(Long id,Long idCommit,Integer idRepository,String storagefolder,Integer idSecurityProject,Integer idJenkinsJob,Long idJenkinsBuild, String veracodePackageName,String veracodeApplicationName,Date date,String status) {
+	public BUILD(Long id,Long idCommit,Integer idRepository,String storagefolder,Integer idSecurityProject,Long idJenkinsBuild, String veracodePackageName,String veracodeApplicationName,Date date,String status) {
 		super();
 		this.id=id;
 		this.idCommit=idCommit;
@@ -55,7 +55,7 @@ public class BUILD extends TableEntity implements Serializable{
 		this.date=date;
 		this.status=status;
 	}
-	public BUILD(Long idCommit,Integer idRepository,String storagefolder,Integer idSecurityProject,Integer idJenkinsJob, String veracodePackageName,String veracodeApplicationName) {
+	public BUILD(Long idCommit,Integer idRepository,String storagefolder,Integer idSecurityProject, String veracodePackageName,String veracodeApplicationName) {
 		super();
 		this.idCommit=idCommit;
 		this.idRepository=idRepository;

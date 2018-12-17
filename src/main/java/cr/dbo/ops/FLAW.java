@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import cr.SharedEntity;
@@ -28,29 +29,44 @@ public class FLAW extends SharedEntity {
 	private Long loc;
 	private Integer severity;
 	private Integer categoryid;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String categoryname;
+//	@Lob
+//	@Column
 	@Column(columnDefinition = "varchar(MAX)")
 	private String category_description;// VARCHAR(MAX)
+//	@Lob
+//	@Column
 	@Column(columnDefinition = "varchar(MAX)")
 	private String recommendation_description;// VARCHAR(MAX)
 	private Integer cweid;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String cwename;
 	private Boolean cwepcirelated;
+//	@Lob
+//	@Column
 	@Column(columnDefinition = "varchar(MAX)")
 	private String cwe_description;// VARCHAR(MAX)
 	private String cia_impact;
 	private Long count;
+//	@Lob
+//	@Column
 	@Column(columnDefinition = "varchar(MAX)")
 	private String flaw_description;// VARCHAR(MAX)
 	private Integer exploitLevel;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String functionprototype;
 	private Integer functionrelativelocation;
 	private Integer issueid;
 	private Integer line;
 	private Boolean pcirelated;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String scope;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String sourcefile;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String sourcefilepath;
+	@Column(columnDefinition = "varchar(MAX)")
 	private String type;
 	private Boolean affects_policy_compliance;
 	private Long build_id;

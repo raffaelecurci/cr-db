@@ -22,10 +22,10 @@ public interface ProjectQueries {
 	@NativeQuery(query="select * from [project] p where (lastscan is null or convert(date,lastscan)<=?) and p.id not in(select id_repository from build where status in('TOBUILD','BUILDSTARTING','BUILDING','PUSHED_TO_VERACODE','SUCCESS','FAILURE','DELETE'))",resultClass=PROJECT.class)
     public List<PROJECT> findProjectForScan (Date d);
 	
-	@NativeQuery(query="DECLARE @idrepo INTEGER set @idrepo=? select * from [commit] where date=(select max(date) from [commit] where id_repository=@idrepo) and id_repository=@idrepo",resultClass=COMMIT.class)
+	@NativeQuery(query="DECLARE @idrepo INTEGER set @idrepo=? select * from [commit] where date=(select max(date) from [commit] where id_repository=@idrepo and id_build=-1) and id_repository=@idrepo",resultClass=COMMIT.class)
 	public COMMIT findLastCommitForProject(Integer idRepository);
 
-	@NativeQuery(query="select * from securityproject where language=?",resultClass=SECURITYPROJECT.class)
+	@NativeQuery(query="select * from securityproject where language like ?",resultClass=SECURITYPROJECT.class)
 	public List<SECURITYPROJECT> findSecurityProjectByLanguage(String language);
 	
 	@NativeQuery(query="select * from [commit] where hash=?",resultClass=COMMIT.class)
@@ -39,6 +39,9 @@ public interface ProjectQueries {
 
 	@NativeQuery(query="select j.* from jenkins j left join securityproject s on j.id=s.id_jenkins where s.id=?",resultClass=JENKINS.class)
 	public JENKINS findJenkinsJobBySecurityId(Integer idSecurityRepository);
+	
+	@NativeQuery(query="select * from build where id_securityproject is null and status='TOBUILD'",resultClass=BUILD.class)
+	public List<BUILD> findBuildRecordsBackLog();
 	
 
 }

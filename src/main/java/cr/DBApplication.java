@@ -9,7 +9,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import cr.annotation.QueueDefinition;
 
-@QueueDefinition(queues = { "db"}, rpcServer= {"db"})
+@QueueDefinition(queues = { "db","ana"}, encryption="PlainText", rpcServer= {"db"},excludeListeners= {"ana"})
 @RefreshScope
 @SpringBootApplication
 @EnableRabbit
